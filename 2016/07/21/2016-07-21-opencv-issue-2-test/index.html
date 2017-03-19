@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="opencv,code," />
 
 
 
@@ -85,16 +85,22 @@
 
 
 
-<meta name="description" content="测试测试能不能使用。">
+<meta name="description" content="开发环境：win10，VS2013，64位
+
+在VS中使用opencv时，有时会出现error C2065: “val”: 未声明的标识符，而且好像是在解决方案平台是x64的时候才会出现，win32没有出现这个情况，不过也说不定，我没测试，win32的时候禁用语言扩展是“否”，x64的时候是“是(/za)”,改成“否”以后不会出现该错误，不过我的项目出现了别的错误，我也没深入测试。不过可以尝试一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决opencv error C2065:“val: 未声明的标识符">
 <meta property="og:url" content="http://aaaaati.cn/2016/07/21/2016-07-21-opencv-issue-2-test/index.html">
 <meta property="og:site_name" content="小小多的博客">
-<meta property="og:description" content="测试测试能不能使用。">
-<meta property="og:updated_time" content="2017-03-19T07:06:07.582Z">
+<meta property="og:description" content="开发环境：win10，VS2013，64位
+
+在VS中使用opencv时，有时会出现error C2065: “val”: 未声明的标识符，而且好像是在解决方案平台是x64的时候才会出现，win32没有出现这个情况，不过也说不定，我没测试，win32的时候禁用语言扩展是“否”，x64的时候是“是(/za)”,改成“否”以后不会出现该错误，不过我的项目出现了别的错误，我也没深入测试。不过可以尝试一">
+<meta property="og:updated_time" content="2017-03-19T11:59:32.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决opencv error C2065:“val: 未声明的标识符">
-<meta name="twitter:description" content="测试测试能不能使用。">
+<meta name="twitter:description" content="开发环境：win10，VS2013，64位
+
+在VS中使用opencv时，有时会出现error C2065: “val”: 未声明的标识符，而且好像是在解决方案平台是x64的时候才会出现，win32没有出现这个情况，不过也说不定，我没测试，win32的时候禁用语言扩展是“否”，x64的时候是“是(/za)”,改成“否”以后不会出现该错误，不过我的项目出现了别的错误，我也没深入测试。不过可以尝试一">
 
 
 
@@ -169,7 +175,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">心有猛虎，细嗅蔷薇</p>
       
   </div>
 
@@ -326,8 +332,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
+                  <a href="/categories/填坑记录/" itemprop="url" rel="index">
+                    <span itemprop="name">填坑记录</span>
                   </a>
                 </span>
 
@@ -349,10 +355,6 @@
           
 
           
-              <div class="post-description">
-                  测试测试能不能使用。
-              </div>
-          
 
         </div>
       </header>
@@ -373,6 +375,7 @@
 <li>设置禁用语言扩展为否，具体操作为：右键解决方案-&gt;属性-&gt;配置属性-&gt;C/C++-&gt;语言。</li>
 <li>第二种的话感觉比较好，因为一般出现这个问题的代码就是以下代码段，只要将其中的<code>val</code>改为<code>this-&gt;val</code>，再编译就不会出现这个问题了。</li>
 </ol>
+<a id="more"></a>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">inline</span> Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt; Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt;::cross(<span class="keyword">const</span> Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt;&amp; v) <span class="keyword">const</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> Vec&lt;<span class="keyword">float</span>,<span class="number">3</span>&gt;(val[<span class="number">1</span>]*v.val[<span class="number">2</span>] - val[<span class="number">2</span>]*v.val[<span class="number">1</span>],</div><div class="line">                     val[<span class="number">2</span>]*v.val[<span class="number">0</span>] - val[<span class="number">0</span>]*v.val[<span class="number">2</span>],</div><div class="line">                     val[<span class="number">0</span>]*v.val[<span class="number">1</span>] - val[<span class="number">1</span>]*v.val[<span class="number">0</span>]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">inline</span> Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt; Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt;::cross(<span class="keyword">const</span> Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt;&amp; v) <span class="keyword">const</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> Vec&lt;<span class="keyword">double</span>,<span class="number">3</span>&gt;(val[<span class="number">1</span>]*v.val[<span class="number">2</span>] - val[<span class="number">2</span>]*v.val[<span class="number">1</span>],</div><div class="line">                     val[<span class="number">2</span>]*v.val[<span class="number">0</span>] - val[<span class="number">0</span>]*v.val[<span class="number">2</span>],</div><div class="line">                     val[<span class="number">0</span>]*v.val[<span class="number">1</span>] - val[<span class="number">1</span>]*v.val[<span class="number">0</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>修改后为：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">inline</span> Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt; Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt;::cross(<span class="keyword">const</span> Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt;&amp; v) <span class="keyword">const</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> Vec&lt;<span class="keyword">float</span>,<span class="number">3</span>&gt;(<span class="keyword">this</span>-&gt;val[<span class="number">1</span>]*v.val[<span class="number">2</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">2</span>]*v.val[<span class="number">1</span>],</div><div class="line">                     <span class="keyword">this</span>-&gt;val[<span class="number">2</span>]*v.val[<span class="number">0</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">0</span>]*v.val[<span class="number">2</span>],</div><div class="line">                     <span class="keyword">this</span>-&gt;val[<span class="number">0</span>]*v.val[<span class="number">1</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">1</span>]*v.val[<span class="number">0</span>]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">inline</span> Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt; Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt;::cross(<span class="keyword">const</span> Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt;&amp; v) <span class="keyword">const</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> Vec&lt;<span class="keyword">double</span>,<span class="number">3</span>&gt;(<span class="keyword">this</span>-&gt;val[<span class="number">1</span>]*v.val[<span class="number">2</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">2</span>]*v.val[<span class="number">1</span>],</div><div class="line">                     <span class="keyword">this</span>-&gt;val[<span class="number">2</span>]*v.val[<span class="number">0</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">0</span>]*v.val[<span class="number">2</span>],</div><div class="line">                     <span class="keyword">this</span>-&gt;val[<span class="number">0</span>]*v.val[<span class="number">1</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">1</span>]*v.val[<span class="number">0</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -395,6 +398,14 @@
 
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/opencv/" rel="tag"># opencv</a>
+          
+            <a href="/tags/code/" rel="tag"># code</a>
+          
+        </div>
       
 
       
@@ -489,7 +500,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -498,7 +509,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

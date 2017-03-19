@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="code,matlab," />
 
 
 
@@ -85,16 +85,16 @@
 
 
 
-<meta name="description" content="使用Matlab批量将视频解压为帧123456789101112131415allVedio = dir([&apos;../AF01_Video/20161229/FFoutput/&apos;,&apos;*.mp4&apos;]);mkdir(&apos;20161229&apos;);for i=1:length(allVedio)    vedioName = allVedio(i).name;    newDirName=strrep(vedi">
+<meta name="description" content="记录一下用matlab操作视频的小代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Matlab解压视频和操作文件夹">
 <meta property="og:url" content="http://aaaaati.cn/2017/01/13/2017/2017-01-13-使用matlab批量将视频解压为帧/index.html">
 <meta property="og:site_name" content="小小多的博客">
-<meta property="og:description" content="使用Matlab批量将视频解压为帧123456789101112131415allVedio = dir([&apos;../AF01_Video/20161229/FFoutput/&apos;,&apos;*.mp4&apos;]);mkdir(&apos;20161229&apos;);for i=1:length(allVedio)    vedioName = allVedio(i).name;    newDirName=strrep(vedi">
-<meta property="og:updated_time" content="2017-03-19T07:06:19.000Z">
+<meta property="og:description" content="记录一下用matlab操作视频的小代码">
+<meta property="og:updated_time" content="2017-03-19T10:13:58.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Matlab解压视频和操作文件夹">
-<meta name="twitter:description" content="使用Matlab批量将视频解压为帧123456789101112131415allVedio = dir([&apos;../AF01_Video/20161229/FFoutput/&apos;,&apos;*.mp4&apos;]);mkdir(&apos;20161229&apos;);for i=1:length(allVedio)    vedioName = allVedio(i).name;    newDirName=strrep(vedi">
+<meta name="twitter:description" content="记录一下用matlab操作视频的小代码">
 
 
 
@@ -169,7 +169,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">心有猛虎，细嗅蔷薇</p>
       
   </div>
 
@@ -326,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
+                  <a href="/categories/代码笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">代码笔记</span>
                   </a>
                 </span>
 
@@ -349,6 +349,10 @@
           
 
           
+              <div class="post-description">
+                  记录一下用matlab操作视频的小代码
+              </div>
+          
 
         </div>
       </header>
@@ -361,8 +365,8 @@
       
 
       
-        <p>使用Matlab批量将视频解压为帧<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">allVedio = dir([<span class="string">'../AF01_Video/20161229/FFoutput/'</span>,<span class="string">'*.mp4'</span>]);</div><div class="line">mkdir(<span class="string">'20161229'</span>);</div><div class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="built_in">length</span>(allVedio)</div><div class="line">    vedioName = allVedio(<span class="built_in">i</span>).name;</div><div class="line">    newDirName=strrep(vedioName,<span class="string">'.mp4'</span>,<span class="string">''</span>);</div><div class="line">    obj = VideoReader(strcat(<span class="string">'../AF01_Video/20161229/FFoutput/'</span>,vedioName));</div><div class="line">    numFrames = obj.NumberOfFrames;</div><div class="line">    <span class="keyword">for</span> k = <span class="number">1</span> : numFrames</div><div class="line">         frame = read(obj,k);</div><div class="line">         <span class="keyword">if</span> exist(strcat(<span class="string">'./20161229/'</span>,newDirName),<span class="string">'dir'</span>)==<span class="number">0</span></div><div class="line">             mkdir(strcat(<span class="string">'./20161229/'</span>,newDirName));</div><div class="line">         <span class="keyword">end</span></div><div class="line">         imwrite(frame,strcat(<span class="string">'./20161229/'</span>,newDirName,<span class="string">'/'</span>,num2str(k,<span class="string">'%04d'</span>),<span class="string">'.jpg'</span>),<span class="string">'jpg'</span>);</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>对文件夹的操作<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">num = <span class="number">0</span>;</div><div class="line">allDir = dir;</div><div class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">3</span>:<span class="built_in">length</span>(allDir)<span class="number">-3</span></div><div class="line">    dirName = allDir(<span class="built_in">i</span>).name;</div><div class="line">    picInDir = dir([strcat(<span class="string">'./'</span>,dirName,<span class="string">'/'</span>),<span class="string">'*.jpg'</span>]);</div><div class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:<span class="built_in">length</span>(picInDir)</div><div class="line">        copyfile(strcat(<span class="string">'./'</span>,dirName,<span class="string">'/'</span>,picInDir(<span class="built_in">j</span>).name),strcat(<span class="string">'../ALL/'</span>,num2str(num,<span class="string">'%04d'</span>),<span class="string">'.jpg'</span>));</div><div class="line">        num=num+<span class="number">1</span>;</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+        <h5 id="使用Matlab批量将视频解压为帧"><a href="#使用Matlab批量将视频解压为帧" class="headerlink" title="使用Matlab批量将视频解压为帧"></a>使用Matlab批量将视频解压为帧</h5><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">allVedio = dir([<span class="string">'../AF01_Video/20161229/FFoutput/'</span>,<span class="string">'*.mp4'</span>]);</div><div class="line">mkdir(<span class="string">'20161229'</span>);</div><div class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="built_in">length</span>(allVedio)</div><div class="line">    vedioName = allVedio(<span class="built_in">i</span>).name;</div><div class="line">    newDirName=strrep(vedioName,<span class="string">'.mp4'</span>,<span class="string">''</span>);</div><div class="line">    obj = VideoReader(strcat(<span class="string">'../AF01_Video/20161229/FFoutput/'</span>,vedioName));</div><div class="line">    numFrames = obj.NumberOfFrames;</div><div class="line">    <span class="keyword">for</span> k = <span class="number">1</span> : numFrames</div><div class="line">         frame = read(obj,k);</div><div class="line">         <span class="keyword">if</span> exist(strcat(<span class="string">'./20161229/'</span>,newDirName),<span class="string">'dir'</span>)==<span class="number">0</span></div><div class="line">             mkdir(strcat(<span class="string">'./20161229/'</span>,newDirName));</div><div class="line">         <span class="keyword">end</span></div><div class="line">         imwrite(frame,strcat(<span class="string">'./20161229/'</span>,newDirName,<span class="string">'/'</span>,num2str(k,<span class="string">'%04d'</span>),<span class="string">'.jpg'</span>),<span class="string">'jpg'</span>);</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<h5 id="对文件夹的操作"><a href="#对文件夹的操作" class="headerlink" title="对文件夹的操作"></a>对文件夹的操作</h5><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">num = <span class="number">0</span>;</div><div class="line">allDir = dir;</div><div class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">3</span>:<span class="built_in">length</span>(allDir)<span class="number">-3</span></div><div class="line">    dirName = allDir(<span class="built_in">i</span>).name;</div><div class="line">    picInDir = dir([strcat(<span class="string">'./'</span>,dirName,<span class="string">'/'</span>),<span class="string">'*.jpg'</span>]);</div><div class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:<span class="built_in">length</span>(picInDir)</div><div class="line">        copyfile(strcat(<span class="string">'./'</span>,dirName,<span class="string">'/'</span>,picInDir(<span class="built_in">j</span>).name),strcat(<span class="string">'../ALL/'</span>,num2str(num,<span class="string">'%04d'</span>),<span class="string">'.jpg'</span>));</div><div class="line">        num=num+<span class="number">1</span>;</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 
       
     </div>
@@ -383,6 +387,14 @@
 
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/code/" rel="tag"># code</a>
+          
+            <a href="/tags/matlab/" rel="tag"># matlab</a>
+          
+        </div>
       
 
       
@@ -452,8 +464,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://omwiezyrk.bkt.clouddn.com/IMG_3596.JPG"
@@ -477,7 +498,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -486,7 +507,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -531,6 +552,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用Matlab批量将视频解压为帧"><span class="nav-number">1.</span> <span class="nav-text">使用Matlab批量将视频解压为帧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对文件夹的操作"><span class="nav-number">2.</span> <span class="nav-text">对文件夹的操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
