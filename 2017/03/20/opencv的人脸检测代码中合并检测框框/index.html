@@ -1,0 +1,776 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="opencv,code,c++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="详解DetectMultiScale函数中合并检测窗口的策略">
+<meta property="og:type" content="article">
+<meta property="og:title" content="opencv的人脸检测代码中合并检测框详解">
+<meta property="og:url" content="http://aaaaati.cn/2017/03/20/opencv的人脸检测代码中合并检测框框/index.html">
+<meta property="og:site_name" content="小小多的博客">
+<meta property="og:description" content="详解DetectMultiScale函数中合并检测窗口的策略">
+<meta property="og:image" content="http://omwiezyrk.bkt.clouddn.com/blog/20170331/133543174.jpg">
+<meta property="og:image" content="http://omwiezyrk.bkt.clouddn.com/blog/20170331/133350153.jpg">
+<meta property="og:image" content="http://omwiezyrk.bkt.clouddn.com/blog/20170331/134136663.jpg">
+<meta property="og:updated_time" content="2017-04-04T08:47:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="opencv的人脸检测代码中合并检测框详解">
+<meta name="twitter:description" content="详解DetectMultiScale函数中合并检测窗口的策略">
+<meta name="twitter:image" content="http://omwiezyrk.bkt.clouddn.com/blog/20170331/133543174.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://aaaaati.cn/2017/03/20/opencv的人脸检测代码中合并检测框框/"/>
+
+
+
+
+
+  <title> opencv的人脸检测代码中合并检测框详解 | 小小多的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小小多的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心有猛虎，细嗅蔷薇</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2017/03/20/opencv的人脸检测代码中合并检测框框/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Doordy Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://omwiezyrk.bkt.clouddn.com/IMG_3596.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小小多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                opencv的人脸检测代码中合并检测框详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T17:24:24+08:00">
+                2017-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/代码笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">代码笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  详解DetectMultiScale函数中合并检测窗口的策略
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="为什么要合并？"><a href="#为什么要合并？" class="headerlink" title="为什么要合并？"></a>为什么要合并？</h2><p>因为我们目标检测的目的是：</p>
+<p><img src="http://omwiezyrk.bkt.clouddn.com/blog/20170331/133543174.jpg" alt="mark"></p>
+<p>但是实际上只通过分类器检测出来是这样的结果：</p>
+<p><img src="http://omwiezyrk.bkt.clouddn.com/blog/20170331/133350153.jpg" alt="mark"><br>所以需要进行检测框的合并。</p>
+<p>在DetectMultiScale函数中，调用groupRectangle函数来进行检测框的合并，合并之前，首先需要解决怎样分组的问题，即解决使用什么样的原则把不同的检测框归为一组，该函数中的解决方案是计算了不同检测框之间的相似度。</p>
+<h2 id="相似度计算方法"><a href="#相似度计算方法" class="headerlink" title="相似度计算方法"></a>相似度计算方法</h2><p>该函数中使用SimilarRects来计算相似度，其方法为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Rect&amp; r1, <span class="keyword">const</span> Rect&amp; r2)</span> <span class="keyword">const</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// delta为最小长宽的eps倍</span></div><div class="line">        <span class="keyword">double</span> delta = eps*(<span class="built_in">std</span>::min(r1.width, r2.width) + <span class="built_in">std</span>::min(r1.height, r2.height))*<span class="number">0.5</span>;</div><div class="line">        <span class="comment">// 如果矩形的四个顶点的位置差别都小于delta，则表示相似的矩形</span></div><div class="line">        <span class="keyword">return</span> <span class="built_in">std</span>::<span class="built_in">abs</span>(r1.x - r2.x) &lt;= delta &amp;&amp;</div><div class="line">               <span class="built_in">std</span>::<span class="built_in">abs</span>(r1.y - r2.y) &lt;= delta &amp;&amp;</div><div class="line">               <span class="built_in">std</span>::<span class="built_in">abs</span>(r1.x + r1.width - r2.x - r2.width) &lt;= delta &amp;&amp;</div><div class="line">               <span class="built_in">std</span>::<span class="built_in">abs</span>(r1.y + r1.height - r2.y - r2.height) &lt;= delta;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="合并流程"><a href="#合并流程" class="headerlink" title="合并流程"></a>合并流程</h2><p>定义好窗口相似性函数后，就可以利用并查集合并窗口函数了，大致过程如下：</p>
+<ol>
+<li>调用Partiton方法进行窗口分组。在该方法中，首先建立Rect对象的并查集初始结构，然后遍历整个并查集，用SimilarRects::operator()判断每2个窗口相似性，若相似则将这2个窗口放入一个组；</li>
+<li>运行完步骤1后会出现几个相互间不相似的窗口的组，当组中的窗口数量小于阈值minNeighbors时，丢弃该组（认为这是零散分布的误检）；</li>
+<li>之后剩下若干组由大量重叠窗口组成的比较大的组，分别求<strong>每个组中的所有窗口位置的平均值作为最终检测结果，每个组中通过stage的最大值以及最大的权重作为最终合并后的检测框的stage和权重</strong>。</li>
+</ol>
+<h2 id="Partiton定义"><a href="#Partiton定义" class="headerlink" title="Partiton定义"></a>Partiton定义</h2><p><strong>Function:</strong> Splits an element set into equivalency classes.</p>
+<p><strong>C++:</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">template&lt;typename _Tp, class _EqPredicate&gt; int partition(const vector&lt;_Tp&gt;&amp; vec, vector&lt;int&gt;&amp; labels, _EqPredicate predicate=_EqPredicate())</div></pre></td></tr></table></figure></p>
+<p><strong>Parameters:</strong>    </p>
+<ul>
+<li>vec – Set of elements stored as a vector.</li>
+<li>labels – Output vector of labels. It contains as many elements as vec. Each label labels[i] is a 0-based cluster index of vec[i] .</li>
+<li>predicate – Equivalence predicate (pointer to a boolean function of two arguments or an instance of the class that has the method bool operator()(const _Tp&amp; a, const _Tp&amp; b) ). The predicate returns true when the elements are certainly in the same class, and returns false if they may or may not be in the same class.</li>
+</ul>
+<p><strong>Description:</strong> The generic function partition implements an O(N^2) algorithm for splitting a set of N elements into one or more equivalency classes, as described in <a href="http://en.wikipedia.org/wiki/Disjoint-set_data_structure" target="_blank" rel="external">http://en.wikipedia.org/wiki/Disjoint-set_data_structure</a> . The function returns the number of equivalency classes.</p>
+<h2 id="完整的groupRectangles函数代码解析："><a href="#完整的groupRectangles函数代码解析：" class="headerlink" title="完整的groupRectangles函数代码解析："></a>完整的groupRectangles函数代码解析：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//rectList：带组合的窗口，即作为输入又作为输出</span></div><div class="line"><span class="comment">//weights：通过分类器的stage数，一般不小于stage总数-4，也就是之前的rejectLevels</span></div><div class="line"><span class="comment">//levelWeights：通过上述stage数的输出权重，也就是通过的stage数的所有node之和，里面即包含left_val又right_val，同一个node只包含其中的一个</span></div><div class="line"><span class="comment">//groupThreshold：组合阈值，当没有输入rejectLevels的时候，当待合并的窗口数大于该阈值的时候才可能进行合并，否则放弃；当输入rejectLevels的时候，当前组合下通过检测的stage最大值数大于该阈值的时候才可能进行合并，否则放弃</span></div><div class="line"><span class="comment">//eps：待合并的两个窗口的相关性，从矩形所在位置的像素差值考虑，当eps为0的时候不进行合并，直接返回</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">groupRectangles</span><span class="params">(<span class="built_in">vector</span>&lt;Rect&gt;&amp; rectList, <span class="keyword">int</span> groupThreshold, <span class="keyword">double</span> eps, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;* weights, <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;* levelWeights)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>( groupThreshold &lt;= <span class="number">0</span> || rectList.empty() ) <span class="comment">//判断minNeibors&lt;=0</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>( weights )   <span class="comment">//如果要输出rejrejectLevels，则令所有的level都为1</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">size_t</span> i, sz = rectList.size();</div><div class="line">            weights-&gt;resize(sz);</div><div class="line">            <span class="keyword">for</span>( i = <span class="number">0</span>; i &lt; sz; i++ )</div><div class="line">                (*weights)[i] = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; labels;</div><div class="line">	<span class="comment">//调用partition函数对rectList中的矩形进行分类,nclasses表示组合类别数,有个参数eps是相关性，labels表示每个rect属于哪个类别的</span></div><div class="line">    <span class="keyword">int</span> nclasses = partition(rectList, labels, SimilarRects(eps));</div><div class="line">    <span class="comment">//存放每一类最后得到的矩形框的</span></div><div class="line">    <span class="built_in">vector</span>&lt;Rect&gt; rrects(nclasses);</div><div class="line">    <span class="comment">//记录同一类中检测框的个数</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rweights(nclasses, <span class="number">0</span>);</div><div class="line">    <span class="comment">//保存每个类中stage的最大值以及最大权重</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rejectLevels(nclasses, <span class="number">0</span>);</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; rejectWeights(nclasses, DBL_MIN);<span class="comment">//DBL_MIN:min positive value</span></div><div class="line"></div><div class="line">    <span class="keyword">int</span> i, j, nlabels = (<span class="keyword">int</span>)labels.size();</div><div class="line"></div><div class="line">	<span class="comment">//组合分到同一类别的矩形并保存当前类别下通过stage的最大值以及最大的权重</span></div><div class="line">    <span class="keyword">for</span>( i = <span class="number">0</span>; i &lt; nlabels; i++ )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> cls = labels[i];</div><div class="line">        rrects[cls].x += rectList[i].x;</div><div class="line">        rrects[cls].y += rectList[i].y;</div><div class="line">        rrects[cls].width += rectList[i].width;</div><div class="line">        rrects[cls].height += rectList[i].height;</div><div class="line">        rweights[cls]++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> ( levelWeights &amp;&amp; weights &amp;&amp; !weights-&gt;empty() &amp;&amp; !levelWeights-&gt;empty() )</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span>( i = <span class="number">0</span>; i &lt; nlabels; i++ )</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> cls = labels[i];</div><div class="line">            <span class="keyword">if</span>( (*weights)[i] &gt; rejectLevels[cls] ) <span class="comment">//得到最大stage</span></div><div class="line">            &#123;</div><div class="line">                rejectLevels[cls] = (*weights)[i];</div><div class="line">                rejectWeights[cls] = (*levelWeights)[i];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>( ( (*weights)[i] == rejectLevels[cls] ) &amp;&amp; ( (*levelWeights)[i] &gt; rejectWeights[cls] ) )</div><div class="line">                rejectWeights[cls] = (*levelWeights)[i]; <span class="comment">//得到最大权重</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//组合矩形的方法是去同一类矩形的平均值</span></div><div class="line">    <span class="keyword">for</span>( i = <span class="number">0</span>; i &lt; nclasses; i++ )</div><div class="line">    &#123;</div><div class="line">        Rect r = rrects[i];</div><div class="line">        <span class="keyword">float</span> s = <span class="number">1.f</span>/rweights[i];</div><div class="line">        rrects[i] = Rect(saturate_cast&lt;<span class="keyword">int</span>&gt;(r.x*s),</div><div class="line">             saturate_cast&lt;<span class="keyword">int</span>&gt;(r.y*s),</div><div class="line">             saturate_cast&lt;<span class="keyword">int</span>&gt;(r.width*s),</div><div class="line">             saturate_cast&lt;<span class="keyword">int</span>&gt;(r.height*s));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    rectList.clear();</div><div class="line">    <span class="keyword">if</span>( weights )</div><div class="line">        weights-&gt;clear();</div><div class="line">    <span class="keyword">if</span>( levelWeights )</div><div class="line">        levelWeights-&gt;clear();</div><div class="line"></div><div class="line">    <span class="comment">//根据上述合并规则，以及是否存在包含关系输出合并后的矩形</span></div><div class="line">    <span class="keyword">for</span>( i = <span class="number">0</span>; i &lt; nclasses; i++ )</div><div class="line">    &#123;</div><div class="line">        Rect r1 = rrects[i];</div><div class="line">        <span class="keyword">int</span> n1 = levelWeights ? rejectLevels[i] : rweights[i];</div><div class="line">        <span class="keyword">double</span> w1 = rejectWeights[i];</div><div class="line">		<span class="comment">//这里就是minNeibor起作用的地方</span></div><div class="line">        <span class="keyword">if</span>( n1 &lt;= groupThreshold )</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        <span class="comment">// filter out small rectangles inside large rectangles</span></div><div class="line">        <span class="keyword">for</span>( j = <span class="number">0</span>; j &lt; nclasses; j++ )</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> n2 = rweights[j];</div><div class="line"></div><div class="line">            <span class="keyword">if</span>( j == i || n2 &lt;= groupThreshold )</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            Rect r2 = rrects[j];</div><div class="line">            </div><div class="line">            <span class="comment">//这里好像是用来防止数据溢出的，但是不懂为什么要这么操作</span></div><div class="line">            <span class="keyword">int</span> dx = saturate_cast&lt;<span class="keyword">int</span>&gt;( r2.width * eps );</div><div class="line">            <span class="keyword">int</span> dy = saturate_cast&lt;<span class="keyword">int</span>&gt;( r2.height * eps );</div><div class="line">            </div><div class="line">            <span class="comment">//前四个判断r1和r2是不是包含关系</span></div><div class="line">            <span class="keyword">if</span>( i != j &amp;&amp;</div><div class="line">                r1.x &gt;= r2.x - dx &amp;&amp;</div><div class="line">                r1.y &gt;= r2.y - dy &amp;&amp;</div><div class="line">                r1.x + r1.width &lt;= r2.x + r2.width + dx &amp;&amp;</div><div class="line">                r1.y + r1.height &lt;= r2.y + r2.height + dy &amp;&amp;</div><div class="line">                (n2 &gt; <span class="built_in">std</span>::max(<span class="number">3</span>, n1) || n1 &lt; <span class="number">3</span>) )</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//不存在包含关系的时候，输出合并后的框</span></div><div class="line">        <span class="keyword">if</span>( j == nclasses )</div><div class="line">        &#123;</div><div class="line">            rectList.push_back(r1);</div><div class="line">            <span class="keyword">if</span>( weights )</div><div class="line">                weights-&gt;push_back(n1);</div><div class="line">            <span class="keyword">if</span>( levelWeights )</div><div class="line">                levelWeights-&gt;push_back(w1);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="后续工作"><a href="#后续工作" class="headerlink" title="后续工作"></a>后续工作</h2><p>通过以上合并流程后并不能完全达到预期的效果，很有可能会出现以下效果：</p>
+<p><img src="http://omwiezyrk.bkt.clouddn.com/blog/20170331/134136663.jpg" alt="mark"></p>
+<p>所以对合并代码做了针对性的修改，在一定程度上减少了上述情况。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="http://blog.csdn.net/zy1034092330/article/details/53231773" target="_blank" rel="external">OpenCV中的Haar+Adaboost（四）：利用并查集合并检测结果窗口</a></li>
+<li><a href="http://blog.csdn.net/dellaserss/article/details/7724401/" target="_blank" rel="external">并查集详解</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/opencv/" rel="tag"># opencv</a>
+          
+            <a href="/tags/code/" rel="tag"># code</a>
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/19/npm修改全局模块的安装路径/" rel="next" title="npm修改全局模块的安装路径‘ ">
+                <i class="fa fa-chevron-left"></i> npm修改全局模块的安装路径‘ 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://omwiezyrk.bkt.clouddn.com/IMG_3596.JPG"
+               alt="Doordy Zhang" />
+          <p class="site-author-name" itemprop="name">Doordy Zhang</p>
+           
+              <p class="site-description motion-element" itemprop="description">Now is the time to take risks.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/glamourzc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2493428177" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要合并？"><span class="nav-number">1.</span> <span class="nav-text">为什么要合并？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相似度计算方法"><span class="nav-number">2.</span> <span class="nav-text">相似度计算方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并流程"><span class="nav-number">3.</span> <span class="nav-text">合并流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partiton定义"><span class="nav-number">4.</span> <span class="nav-text">Partiton定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整的groupRectangles函数代码解析："><span class="nav-number">5.</span> <span class="nav-text">完整的groupRectangles函数代码解析：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后续工作"><span class="nav-number">6.</span> <span class="nav-text">后续工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Doordy Zhang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
