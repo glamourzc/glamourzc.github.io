@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="windows,blog," />
+  <meta name="keywords" content="code,C++," />
 
 
 
@@ -85,18 +85,16 @@
 
 
 
-<meta name="description" content="今天想用hexo代替jkelly，在使用npm安装hexo的时候发现npm安装全局模块的默认路径是C:\Users\username\AppData\Roaming\npm，我很不想让这些东西放在c盘的文件夹下，所以就打算改一下，但是改的时候也遇到了坑，所以记录一下。">
+<meta name="description" content="UTF-8转GB2312:12345678910111213char* convertUTF8ToGB2312(const char* utf8)&amp;#123;	int len = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);	wchar_t* wstr = new wchar_t[len+1];	memset(wstr, 0, len+1)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="npm修改全局模块的安装路径">
-<meta property="og:url" content="http://aaaaati.cn/2017/03/19/npm修改全局模块的安装路径/index.html">
+<meta property="og:title" content="utf-8和GB2312互转">
+<meta property="og:url" content="http://aaaaati.cn/2016/07/22/utf8-2-GB2312/index.html">
 <meta property="og:site_name" content="小小多的博客">
-<meta property="og:description" content="今天想用hexo代替jkelly，在使用npm安装hexo的时候发现npm安装全局模块的默认路径是C:\Users\username\AppData\Roaming\npm，我很不想让这些东西放在c盘的文件夹下，所以就打算改一下，但是改的时候也遇到了坑，所以记录一下。">
-<meta property="og:image" content="http://omwiezyrk.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170319151949.png">
-<meta property="og:updated_time" content="2017-04-06T09:37:06.000Z">
+<meta property="og:description" content="UTF-8转GB2312:12345678910111213char* convertUTF8ToGB2312(const char* utf8)&amp;#123;	int len = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);	wchar_t* wstr = new wchar_t[len+1];	memset(wstr, 0, len+1)">
+<meta property="og:updated_time" content="2017-03-19T10:00:45.191Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="npm修改全局模块的安装路径">
-<meta name="twitter:description" content="今天想用hexo代替jkelly，在使用npm安装hexo的时候发现npm安装全局模块的默认路径是C:\Users\username\AppData\Roaming\npm，我很不想让这些东西放在c盘的文件夹下，所以就打算改一下，但是改的时候也遇到了坑，所以记录一下。">
-<meta name="twitter:image" content="http://omwiezyrk.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170319151949.png">
+<meta name="twitter:title" content="utf-8和GB2312互转">
+<meta name="twitter:description" content="UTF-8转GB2312:12345678910111213char* convertUTF8ToGB2312(const char* utf8)&amp;#123;	int len = MultiByteToWideChar(CP_UTF8, 0, utf8, -1, NULL, 0);	wchar_t* wstr = new wchar_t[len+1];	memset(wstr, 0, len+1)">
 
 
 
@@ -124,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://aaaaati.cn/2017/03/19/npm修改全局模块的安装路径/"/>
+  <link rel="canonical" href="http://aaaaati.cn/2016/07/22/utf8-2-GB2312/"/>
 
 
 
 
 
-  <title> npm修改全局模块的安装路径 | 小小多的博客 </title>
+  <title> utf-8和GB2312互转 | 小小多的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -269,7 +267,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2017/03/19/npm修改全局模块的安装路径/">
+    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2016/07/22/utf8-2-GB2312/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Doordy Zhang">
@@ -290,7 +288,7 @@
             
             
               
-                npm修改全局模块的安装路径
+                utf-8和GB2312互转
               
             
           </h1>
@@ -305,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-19T15:04:07+08:00">
-                2017-03-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-22T00:00:00+08:00">
+                2016-07-22
               </time>
             
 
@@ -328,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/填坑记录/" itemprop="url" rel="index">
-                    <span itemprop="name">填坑记录</span>
+                  <a href="/categories/代码笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">代码笔记</span>
                   </a>
                 </span>
 
@@ -363,12 +361,8 @@
       
 
       
-        <p>今天想用hexo代替jkelly，在使用npm安装hexo的时候发现npm安装全局模块的默认路径是<code>C:\Users\username\AppData\Roaming\npm</code>，我很不想让这些东西放在c盘的文件夹下，所以就打算改一下，但是改的时候也遇到了坑，所以记录一下。</p>
-<a id="more"></a>
-<p>首先，可以使用<code>npm config ls</code>命令查看npm的配置信息,如下图。<br><img src="http://omwiezyrk.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170319151949.png" alt="npmConfig"></p>
-<p>然后使用<code>npm config set prefix &quot;you path&quot;</code>修改路径。</p>
-<p>改变完以后再安装hexo确实可以安装到指定路径了。</p>
-<p>但是想<code>hexo init</code>却提示错误，原来还需要修改环境变量，最后还有重启一下资源管理其或者电脑。</p>
+        <h5 id="UTF-8转GB2312"><a href="#UTF-8转GB2312" class="headerlink" title="UTF-8转GB2312:"></a>UTF-8转GB2312:</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">char</span>* <span class="title">convertUTF8ToGB2312</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* utf8)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> len = MultiByteToWideChar(CP_UTF8, <span class="number">0</span>, utf8, <span class="number">-1</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</div><div class="line">	<span class="keyword">wchar_t</span>* wstr = <span class="keyword">new</span> <span class="keyword">wchar_t</span>[len+<span class="number">1</span>];</div><div class="line">	<span class="built_in">memset</span>(wstr, <span class="number">0</span>, len+<span class="number">1</span>);</div><div class="line">	MultiByteToWideChar(CP_UTF8, <span class="number">0</span>, utf8, <span class="number">-1</span>, wstr, len);</div><div class="line">	len = WideCharToMultiByte(CP_ACP, <span class="number">0</span>, wstr, <span class="number">-1</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</div><div class="line">	<span class="keyword">char</span>* str = <span class="keyword">new</span> <span class="keyword">char</span>[len+<span class="number">1</span>];</div><div class="line">	<span class="built_in">memset</span>(str, <span class="number">0</span>, len+<span class="number">1</span>);</div><div class="line">	WideCharToMultiByte(CP_ACP, <span class="number">0</span>, wstr, <span class="number">-1</span>, str, len, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</div><div class="line">	<span class="keyword">if</span>(wstr) <span class="keyword">delete</span>[] wstr;</div><div class="line">	<span class="keyword">return</span> str;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="GB2312转UTF-8"><a href="#GB2312转UTF-8" class="headerlink" title="GB2312转UTF-8:"></a>GB2312转UTF-8:</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">char</span>* <span class="title">convertGB2312ToUTF8</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* gb2312)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> len = MultiByteToWideChar(CP_ACP, <span class="number">0</span>, gb2312, <span class="number">-1</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</div><div class="line">	<span class="keyword">wchar_t</span>* wstr = <span class="keyword">new</span> <span class="keyword">wchar_t</span>[len+<span class="number">1</span>];</div><div class="line">	<span class="built_in">memset</span>(wstr, <span class="number">0</span>, len+<span class="number">1</span>);</div><div class="line">	MultiByteToWideChar(CP_ACP, <span class="number">0</span>, gb2312, <span class="number">-1</span>, wstr, len);</div><div class="line">	len = WideCharToMultiByte(CP_UTF8, <span class="number">0</span>, wstr, <span class="number">-1</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</div><div class="line">	<span class="keyword">char</span>* str = <span class="keyword">new</span> <span class="keyword">char</span>[len+<span class="number">1</span>];</div><div class="line">	<span class="built_in">memset</span>(str, <span class="number">0</span>, len+<span class="number">1</span>);</div><div class="line">	WideCharToMultiByte(CP_UTF8, <span class="number">0</span>, wstr, <span class="number">-1</span>, str, len, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</div><div class="line">	<span class="keyword">if</span>(wstr) <span class="keyword">delete</span>[] wstr;</div><div class="line">	<span class="keyword">return</span> str;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -392,9 +386,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/windows/" rel="tag"># windows</a>
+            <a href="/tags/code/" rel="tag"># code</a>
           
-            <a href="/tags/blog/" rel="tag"># blog</a>
+            <a href="/tags/C/" rel="tag"># C++</a>
           
         </div>
       
@@ -407,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/13/2017-2017-01-13-使用matlab批量将视频解压为帧/" rel="next" title="使用Matlab解压视频和操作文件夹">
-                <i class="fa fa-chevron-left"></i> 使用Matlab解压视频和操作文件夹
+              <a href="/2016/07/22/error-LNK2019 /" rel="next" title="error LNK2019解决方法">
+                <i class="fa fa-chevron-left"></i> error LNK2019解决方法
               </a>
             
           </div>
@@ -417,8 +411,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/20/opencv的人脸检测代码中合并检测框框/" rel="prev" title="opencv的人脸检测代码中合并检测框详解">
-                opencv的人脸检测代码中合并检测框详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/10/06/testPic/" rel="prev" title="感觉身体被掏空">
+                感觉身体被掏空 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -466,8 +460,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://omwiezyrk.bkt.clouddn.com/IMG_3596.JPG"
@@ -545,6 +548,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#UTF-8转GB2312"><span class="nav-number">1.</span> <span class="nav-text">UTF-8转GB2312:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GB2312转UTF-8"><span class="nav-number">2.</span> <span class="nav-text">GB2312转UTF-8:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

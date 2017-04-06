@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="windows,blog," />
+  <meta name="keywords" content="opencv,code," />
 
 
 
@@ -85,18 +85,22 @@
 
 
 
-<meta name="description" content="今天想用hexo代替jkelly，在使用npm安装hexo的时候发现npm安装全局模块的默认路径是C:\Users\username\AppData\Roaming\npm，我很不想让这些东西放在c盘的文件夹下，所以就打算改一下，但是改的时候也遇到了坑，所以记录一下。">
+<meta name="description" content="开发环境：win10，VS2013，64位
+
+在VS中使用opencv时，有时会出现error C2065: “val”: 未声明的标识符，而且好像是在解决方案平台是x64的时候才会出现，win32没有出现这个情况，不过也说不定，我没测试，win32的时候禁用语言扩展是“否”，x64的时候是“是(/za)”,改成“否”以后不会出现该错误，不过我的项目出现了别的错误，我也没深入测试。不过可以尝试一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="npm修改全局模块的安装路径">
-<meta property="og:url" content="http://aaaaati.cn/2017/03/19/npm修改全局模块的安装路径/index.html">
+<meta property="og:title" content="解决opencv error C2065:“val: 未声明的标识符">
+<meta property="og:url" content="http://aaaaati.cn/2016/07/21/opencv-issue-2-test/index.html">
 <meta property="og:site_name" content="小小多的博客">
-<meta property="og:description" content="今天想用hexo代替jkelly，在使用npm安装hexo的时候发现npm安装全局模块的默认路径是C:\Users\username\AppData\Roaming\npm，我很不想让这些东西放在c盘的文件夹下，所以就打算改一下，但是改的时候也遇到了坑，所以记录一下。">
-<meta property="og:image" content="http://omwiezyrk.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170319151949.png">
-<meta property="og:updated_time" content="2017-04-06T09:37:06.000Z">
+<meta property="og:description" content="开发环境：win10，VS2013，64位
+
+在VS中使用opencv时，有时会出现error C2065: “val”: 未声明的标识符，而且好像是在解决方案平台是x64的时候才会出现，win32没有出现这个情况，不过也说不定，我没测试，win32的时候禁用语言扩展是“否”，x64的时候是“是(/za)”,改成“否”以后不会出现该错误，不过我的项目出现了别的错误，我也没深入测试。不过可以尝试一">
+<meta property="og:updated_time" content="2017-03-19T11:59:32.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="npm修改全局模块的安装路径">
-<meta name="twitter:description" content="今天想用hexo代替jkelly，在使用npm安装hexo的时候发现npm安装全局模块的默认路径是C:\Users\username\AppData\Roaming\npm，我很不想让这些东西放在c盘的文件夹下，所以就打算改一下，但是改的时候也遇到了坑，所以记录一下。">
-<meta name="twitter:image" content="http://omwiezyrk.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170319151949.png">
+<meta name="twitter:title" content="解决opencv error C2065:“val: 未声明的标识符">
+<meta name="twitter:description" content="开发环境：win10，VS2013，64位
+
+在VS中使用opencv时，有时会出现error C2065: “val”: 未声明的标识符，而且好像是在解决方案平台是x64的时候才会出现，win32没有出现这个情况，不过也说不定，我没测试，win32的时候禁用语言扩展是“否”，x64的时候是“是(/za)”,改成“否”以后不会出现该错误，不过我的项目出现了别的错误，我也没深入测试。不过可以尝试一">
 
 
 
@@ -124,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://aaaaati.cn/2017/03/19/npm修改全局模块的安装路径/"/>
+  <link rel="canonical" href="http://aaaaati.cn/2016/07/21/opencv-issue-2-test/"/>
 
 
 
 
 
-  <title> npm修改全局模块的安装路径 | 小小多的博客 </title>
+  <title> 解决opencv error C2065:“val: 未声明的标识符 | 小小多的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -269,7 +273,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2017/03/19/npm修改全局模块的安装路径/">
+    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2016/07/21/opencv-issue-2-test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Doordy Zhang">
@@ -290,7 +294,7 @@
             
             
               
-                npm修改全局模块的安装路径
+                解决opencv error C2065:“val: 未声明的标识符
               
             
           </h1>
@@ -305,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-19T15:04:07+08:00">
-                2017-03-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-21T00:00:00+08:00">
+                2016-07-21
               </time>
             
 
@@ -363,13 +367,18 @@
       
 
       
-        <p>今天想用hexo代替jkelly，在使用npm安装hexo的时候发现npm安装全局模块的默认路径是<code>C:\Users\username\AppData\Roaming\npm</code>，我很不想让这些东西放在c盘的文件夹下，所以就打算改一下，但是改的时候也遇到了坑，所以记录一下。</p>
+        <blockquote>
+<p>开发环境：win10，VS2013，64位</p>
+</blockquote>
+<p>在VS中使用opencv时，有时会出现<strong>error C2065: “val”: 未声明的标识符</strong>，而且好像是在解决方案平台是x64的时候才会出现，win32没有出现这个情况，不过也说不定，我没测试，win32的时候禁用语言扩展是“否”，x64的时候是“是(/za)”,改成“否”以后不会出现该错误，不过我的项目出现了别的错误，我也没深入测试。不过可以尝试一下这两种解决方案：</p>
+<ol>
+<li>设置禁用语言扩展为否，具体操作为：右键解决方案-&gt;属性-&gt;配置属性-&gt;C/C++-&gt;语言。</li>
+<li>第二种的话感觉比较好，因为一般出现这个问题的代码就是以下代码段，只要将其中的<code>val</code>改为<code>this-&gt;val</code>，再编译就不会出现这个问题了。</li>
+</ol>
 <a id="more"></a>
-<p>首先，可以使用<code>npm config ls</code>命令查看npm的配置信息,如下图。<br><img src="http://omwiezyrk.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170319151949.png" alt="npmConfig"></p>
-<p>然后使用<code>npm config set prefix &quot;you path&quot;</code>修改路径。</p>
-<p>改变完以后再安装hexo确实可以安装到指定路径了。</p>
-<p>但是想<code>hexo init</code>却提示错误，原来还需要修改环境变量，最后还有重启一下资源管理其或者电脑。</p>
-
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">inline</span> Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt; Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt;::cross(<span class="keyword">const</span> Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt;&amp; v) <span class="keyword">const</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> Vec&lt;<span class="keyword">float</span>,<span class="number">3</span>&gt;(val[<span class="number">1</span>]*v.val[<span class="number">2</span>] - val[<span class="number">2</span>]*v.val[<span class="number">1</span>],</div><div class="line">                     val[<span class="number">2</span>]*v.val[<span class="number">0</span>] - val[<span class="number">0</span>]*v.val[<span class="number">2</span>],</div><div class="line">                     val[<span class="number">0</span>]*v.val[<span class="number">1</span>] - val[<span class="number">1</span>]*v.val[<span class="number">0</span>]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">inline</span> Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt; Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt;::cross(<span class="keyword">const</span> Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt;&amp; v) <span class="keyword">const</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> Vec&lt;<span class="keyword">double</span>,<span class="number">3</span>&gt;(val[<span class="number">1</span>]*v.val[<span class="number">2</span>] - val[<span class="number">2</span>]*v.val[<span class="number">1</span>],</div><div class="line">                     val[<span class="number">2</span>]*v.val[<span class="number">0</span>] - val[<span class="number">0</span>]*v.val[<span class="number">2</span>],</div><div class="line">                     val[<span class="number">0</span>]*v.val[<span class="number">1</span>] - val[<span class="number">1</span>]*v.val[<span class="number">0</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>修改后为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">inline</span> Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt; Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt;::cross(<span class="keyword">const</span> Vec&lt;<span class="keyword">float</span>, <span class="number">3</span>&gt;&amp; v) <span class="keyword">const</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> Vec&lt;<span class="keyword">float</span>,<span class="number">3</span>&gt;(<span class="keyword">this</span>-&gt;val[<span class="number">1</span>]*v.val[<span class="number">2</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">2</span>]*v.val[<span class="number">1</span>],</div><div class="line">                     <span class="keyword">this</span>-&gt;val[<span class="number">2</span>]*v.val[<span class="number">0</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">0</span>]*v.val[<span class="number">2</span>],</div><div class="line">                     <span class="keyword">this</span>-&gt;val[<span class="number">0</span>]*v.val[<span class="number">1</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">1</span>]*v.val[<span class="number">0</span>]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">inline</span> Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt; Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt;::cross(<span class="keyword">const</span> Vec&lt;<span class="keyword">double</span>, <span class="number">3</span>&gt;&amp; v) <span class="keyword">const</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> Vec&lt;<span class="keyword">double</span>,<span class="number">3</span>&gt;(<span class="keyword">this</span>-&gt;val[<span class="number">1</span>]*v.val[<span class="number">2</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">2</span>]*v.val[<span class="number">1</span>],</div><div class="line">                     <span class="keyword">this</span>-&gt;val[<span class="number">2</span>]*v.val[<span class="number">0</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">0</span>]*v.val[<span class="number">2</span>],</div><div class="line">                     <span class="keyword">this</span>-&gt;val[<span class="number">0</span>]*v.val[<span class="number">1</span>] - <span class="keyword">this</span>-&gt;val[<span class="number">1</span>]*v.val[<span class="number">0</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -392,9 +401,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/windows/" rel="tag"># windows</a>
+            <a href="/tags/opencv/" rel="tag"># opencv</a>
           
-            <a href="/tags/blog/" rel="tag"># blog</a>
+            <a href="/tags/code/" rel="tag"># code</a>
           
         </div>
       
@@ -407,18 +416,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/13/2017-2017-01-13-使用matlab批量将视频解压为帧/" rel="next" title="使用Matlab解压视频和操作文件夹">
-                <i class="fa fa-chevron-left"></i> 使用Matlab解压视频和操作文件夹
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/20/opencv的人脸检测代码中合并检测框框/" rel="prev" title="opencv的人脸检测代码中合并检测框详解">
-                opencv的人脸检测代码中合并检测框详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/21/win10-chrome-issue-2-test/" rel="prev" title="Win10下提取chrome扩展程序">
+                Win10下提取chrome扩展程序 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
