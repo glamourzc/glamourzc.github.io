@@ -268,7 +268,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2016/07/21/opencv-issue-2-test/">
+    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2016/07/21/win10-chrome-issue-2-test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Doordy Zhang">
@@ -290,8 +290,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/opencv-issue-2-test/" itemprop="url">
-                  解决opencv error C2065:“val: 未声明的标识符
+                <a class="post-title-link" href="/2016/07/21/win10-chrome-issue-2-test/" itemprop="url">
+                  Win10下提取chrome扩展程序
                 </a>
               
             
@@ -366,21 +366,20 @@
 
       
         
-          <blockquote>
-<p>开发环境：win10，VS2013，64位</p>
+          
+            <blockquote>
+<p>目前网上提取chrome拓展程序的方式或多或少的过时了，今天想提取chrome中的一个扩展程序，用了很多方式都没找到，后来只能找cheome的数据，网上的路径一般都是win7的。</p>
 </blockquote>
-<p>在VS中使用opencv时，有时会出现<strong>error C2065: “val”: 未声明的标识符</strong>，而且好像是在解决方案平台是x64的时候才会出现，win32没有出现这个情况，不过也说不定，我没测试，win32的时候禁用语言扩展是“否”，x64的时候是“是(/za)”,改成“否”以后不会出现该错误，不过我的项目出现了别的错误，我也没深入测试。不过可以尝试一下这两种解决方案：</p>
 <ol>
-<li>设置禁用语言扩展为否，具体操作为：右键解决方案-&gt;属性-&gt;配置属性-&gt;C/C++-&gt;语言。</li>
-<li>第二种的话感觉比较好，因为一般出现这个问题的代码就是以下代码段，只要将其中的<code>val</code>改为<code>this-&gt;val</code>，再编译就不会出现这个问题了。</li>
+<li><p><strong>找路径</strong><br>在win10下的<code>C:\Users\username\AppData\Local\Google\Chrome\User Data\Default\Extensions</code>目录里面，有你安装过的所有扩展程序的文件夹，但是里面的文件夹名都是乱码，需要进行第二步。</p>
+</li>
+<li><p><strong>找想要提取的程序的id</strong><br>以<a href="https://chrome.google.com/webstore/detail/google-keep-chrome-extens/lpcaedmchfhocbbapmcbpinfpgnhiddi?utm_source=chrome-app-launcher-info-dialog" target="_blank" rel="external">Google Keep</a>为例，在chrome网上应用店找到其链接，<br><code>https://chrome.google.com/webstore/detail/google-keep-chrome-extens/lpcaedmchfhocbbapmcbpinfpgnhiddi?utm_source=chrome-app-launcher-info-dialog</code><br>则lpcaedmchfhocbbapmcbpinfpgnhiddi为其id，然后根据此id去找相应的文件夹。其实还有一个笨方法，在翻不了墙的情况下也能用，就是根据版本号去找，每个文件夹中会有该扩展程序的版本号，基本上通过这个和chrome的对应就可以找到了。</p>
+</li>
+<li><p><strong>使用</strong><br>可以用作学习使用，如果要在别的浏览器中使用的话，需要在打包为crx后再拖到浏览器就好了。</p>
+</li>
 </ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/07/21/opencv-issue-2-test/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+
+          
         
       
     </div>
