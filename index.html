@@ -268,6 +268,152 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2017/06/30/c++中ifstream操作文件尾/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Doordy Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://omwiezyrk.bkt.clouddn.com/IMG_3596.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小小多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/30/c++中ifstream操作文件尾/" itemprop="url">
+                  c++中ifsream操作文件尾
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-30T00:00:00+08:00">
+                2017-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/代码笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">代码笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>C++中ifstream的<code>&gt;&gt;</code>操作符很好用，可以自动跳过空格和回车，同时对多个变量赋值，比如<br><code>in &gt;&gt; a &gt;&gt; b &gt;&gt; c &gt;&gt; d;</code>。</p>
+<p>但是<code>&gt;&gt;</code>操作符会忽略前面的空白符和换行符，但不会越过后面的换行符和空白符，也就是说都玩一个数据后会将不会跳过空格或者换行，只有在读取下一个的时候才会跳过，之前判断是否文件尾使用<code>!in.eof()</code>和<code>in.peek()==EOF</code>，但是都不能避免这个问题。</p>
+<p>后来发现<code>&gt;&gt;</code>是有返回值的，可以直接作为判断</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span>(in&gt;&gt;temp.name)</div><div class="line">&#123;</div><div class="line">    in &gt;&gt; temp.a &gt;&gt; temp.b &gt;&gt; temp.c &gt;&gt; temp.d;</div><div class="line">    temp.push_back(temp);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就OK啦，如果觉得不够稳，可以把所有输入都放到while条件里面，哈哈😄</p>
+<h4 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h4><p><a href="http://www.kangry.net/blog/?type=article&amp;article_id=91" target="_blank" rel="external">http://www.kangry.net/blog/?type=article&amp;article_id=91</a></p>
+<p><a href="http://blog.csdn.net/shuilan0066/article/details/4669451" target="_blank" rel="external">http://blog.csdn.net/shuilan0066/article/details/4669451</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2017/05/23/SSD配置记录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1548,151 +1694,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://aaaaati.cn/2016/07/22/error-LNK2019 /">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Doordy Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://omwiezyrk.bkt.clouddn.com/IMG_3596.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小小多的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/22/error-LNK2019 /" itemprop="url">
-                  error LNK2019解决方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-22T00:00:00+08:00">
-                2016-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/填坑记录/" itemprop="url" rel="index">
-                    <span itemprop="name">填坑记录</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用VS开发的时候有时会遇到error LNK2005 和error LNK2019。</p>
-<p>比如：</p>
-<p>error LNK2019: unresolved external symbol <strong>imp_</strong>CrtDbgReportW referenced in function “public: double &amp; __thiscall std::vector&lt;double,class std</p>
-<p>MSVCRT.lib(MSVCR80.dll) : error LNK2005: _strtol already defined in LIBCMTD.lib(strtol.obj)</p>
-<p>MSVCRT.lib(MSVCR80.dll) : error LNK2005: _strtol already defined in LIBCMTD.lib(strtol.obj)</p>
-<p>这类错误只需要将属性-&gt;C/C++-&gt;代码生成-&gt;运行库设置为<strong>多线程调试DLL(/MDd)</strong>就OK了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1742,7 +1743,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
